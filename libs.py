@@ -6,7 +6,6 @@ def interactive_proc_start(cmd):
     process.start()
     while True:
         output = process.stdout.readline()
-        if output == b'':
-            break
+        if output == b'': break
         print(output.decode('utf-8'))
     process.terminate()
