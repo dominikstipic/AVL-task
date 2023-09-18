@@ -1,1 +1,4 @@
-cat input | python3 entrypoint.py
+python3 entrypoint.py << EOF
+sha256 
+Ovo je moja poruka 
+EOF
