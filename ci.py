@@ -16,8 +16,8 @@ def git_commit(version):
     subprocess.run(["git", "commit", "--message", f"version {version}"])
 
 def run_tests():
-    sys.path.insert(0, "service1")
-    sys.path.insert(0, "service2")
+    sys.path.insert(0, "services/service1")
+    sys.path.insert(0, "services/service2")
     import services.service1.test as t1
     import services.service2.test as t2
     try:
