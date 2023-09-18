@@ -61,7 +61,7 @@ def push_images():
     cmd1 = "docker image push thegreatgamma/avl-task:s1"
     cmd2 = "docker image push thegreatgamma/avl-task:s2"
     libs.interactive_proc_start(cmd1)
-
+    libs.interactive_proc_start(cmd2)
 
 changes = check_for_git_changes()
 if not changes:
@@ -80,5 +80,3 @@ build()
 credentials = get_credentials("credentials.json")
 docker_login(**credentials)
 push_images()
-
-
