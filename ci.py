@@ -80,3 +80,4 @@ build()
 credentials = get_credentials("credentials.json")
 docker_login(**credentials)
 push_images()
+
