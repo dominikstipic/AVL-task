@@ -52,7 +52,7 @@ def docker_login(username, password):
    print(output)
    
 def build():
-   cmd = f"docker-compose up"
+   cmd = f"docker-compose up -d"
    result = subprocess.run(cmd.split(), capture_output=True)
    print(result)
 
