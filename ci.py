@@ -42,6 +42,7 @@ def run_tests():
 
 changes = check_for_git_changes()
 if not changes:
+   print("No changes!")
    sys.exit()
 commit_message_cmd = "git log | head -n 5 | tail -n 1"
 commit_message = exec_cmd(commit_message_cmd)
