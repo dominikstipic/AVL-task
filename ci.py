@@ -1,8 +1,9 @@
 import subprocess
 import sys
 import json
+import libs
 
-def exec_cmd(cmd):
+def exec_pipe_cmd(cmd):
     cmds = cmd.split("|")
     process = subprocess.Popen(cmds[0].strip().split(), stdout=subprocess.PIPE)
     for i in range(1, len(cmds)):
@@ -56,12 +57,18 @@ def build():
    result = subprocess.run(cmd.split(), capture_output=True)
    print(result)
 
+def push_images():
+    cmd1 = "docker image push thegreatgamma/avl-task:s1"
+    cmd2 = "docker image push thegreatgamma/avl-task:s2"
+    libs.interactive_proc_start(cmd1)
+
+
 changes = check_for_git_changes()
 if not changes:
    print("No changes!")
    sys.exit()
 commit_message_cmd = "git log | head -n 5 | tail -n 1"
-commit_message = exec_cmd(commit_message_cmd)
+commit_message = exec_pipe_cmd(commit_message_cmd)
 new_version = int(commit_message.split()[1])+1
 git_commit(new_version)
 
@@ -70,5 +77,5 @@ print(t)
 
 build()
 
-#credentials = get_credentials("credentials.json")
-#docker_login(**credentials)
+credentials = get_credentials("credentials.json")
+docker_login(**credentials)
