@@ -1,6 +1,6 @@
 import subprocess
 import sys
-
+import json
 
 def exec_cmd(cmd):
     cmds = cmd.split("|")
@@ -40,6 +40,18 @@ def run_tests():
        t2 = False
     return dict(test1=t1, test2=t2)
 
+def get_credentials(json_file_path):
+    with open(json_file_path, "r") as f:
+        json_data = json.load(f)
+    return json_data 
+
+def docker_login(username, password):
+   cmd = f"docker login -u {username} -p {password}"
+   result = subprocess.run(cmd.split(), capture_output=True)
+   output = result.stdout.decode()
+   print(output)
+   
+
 changes = check_for_git_changes()
 if not changes:
    print("No changes!")
@@ -50,3 +62,6 @@ new_version = int(commit_message.split()[1])+1
 git_commit(new_version)
 t = run_tests()
 print(t)
+
+credentials = get_credentials("credentials.json")
+docker_login(**credentials)
