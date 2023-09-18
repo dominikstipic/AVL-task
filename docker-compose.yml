@@ -3,14 +3,15 @@ services:
   s1:
     build: service1
     container_name: service1
+    image: thegreatgamma/avl-task:s1
     networks: 
-        - my-network
+      - my-network
     ports:
       - 8080:8080
-
   s2:
       build: service2
       container_name: service2
+      image: thegreatgamma/avl-task:s2
       networks: 
         - my-network
       ports:

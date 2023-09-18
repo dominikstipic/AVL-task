@@ -51,6 +51,10 @@ def docker_login(username, password):
    output = result.stdout.decode()
    print(output)
    
+def build():
+   cmd = f"docker-compose up"
+   result = subprocess.run(cmd.split(), capture_output=True)
+   print(result)
 
 changes = check_for_git_changes()
 if not changes:
@@ -60,8 +64,11 @@ commit_message_cmd = "git log | head -n 5 | tail -n 1"
 commit_message = exec_cmd(commit_message_cmd)
 new_version = int(commit_message.split()[1])+1
 git_commit(new_version)
+
 t = run_tests()
 print(t)
 
-credentials = get_credentials("credentials.json")
-docker_login(**credentials)
+build()
+
+#credentials = get_credentials("credentials.json")
+#docker_login(**credentials)
