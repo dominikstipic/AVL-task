@@ -1,13 +1,19 @@
 import subprocess
 import json
 
-def interactive_proc_start(cmd):
+def interactive_proc_start(cmd, pool=True):
     cmds = cmd.strip().split()
     process = subprocess.Popen(cmds, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    while process.poll() == None:
-        output = process.stdout.readline()
-        if output == b'': break
-        print(output.decode('utf-8'))
+    if pool:
+        while process.poll() != None:
+            output = process.stdout.readline()
+            if output == b'': break
+            print(output.decode('utf-8'))
+    else:
+        while True:
+            output = process.stdout.readline()
+            if output == b'': break
+            print(output.decode('utf-8'))
 
 def exec_pipe_cmd(cmd):
     cmds = cmd.split("|")

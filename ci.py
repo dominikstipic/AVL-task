@@ -38,7 +38,7 @@ def docker_login(username, password):
    print(output)
    
 def build():
-   cmd = f"docker-compose up -d"
+   cmd = f"docker-compose up -d --build"
    result = subprocess.run(cmd.split(), capture_output=True)
    print(result)
 
@@ -48,8 +48,7 @@ def push_images():
     libs.interactive_proc_start(cmd1)
     libs.interactive_proc_start(cmd2)
 
-########################
-
+######################################################
 changes = check_for_git_changes()
 if not changes:
    print("No changes!")
@@ -64,6 +63,6 @@ git_commit(new_version)
 
 # build()
 
-# credentials = libs.get_json("credentials.json")
+# credentials = libs.get_json("credentials.json")["docker"]
 # docker_login(**credentials)
 # push_images()

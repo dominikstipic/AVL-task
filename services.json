@@ -1,4 +1,4 @@
 {
-    "service1": 0,
-    "service2": 1
+    "service1": "v0",
+    "service2": "v1"
 }
