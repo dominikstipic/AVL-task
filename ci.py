@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import json
 import libs
 
 def check_for_git_changes():
@@ -32,11 +31,6 @@ def run_tests():
        t2 = False
     return dict(test1=t1, test2=t2)
 
-def get_credentials(json_file_path):
-    with open(json_file_path, "r") as f:
-        json_data = json.load(f)
-    return json_data 
-
 def docker_login(username, password):
    cmd = f"docker login -u {username} -p {password}"
    result = subprocess.run(cmd.split(), capture_output=True)
@@ -54,6 +48,8 @@ def push_images():
     libs.interactive_proc_start(cmd1)
     libs.interactive_proc_start(cmd2)
 
+########################
+
 changes = check_for_git_changes()
 if not changes:
    print("No changes!")
@@ -63,11 +59,11 @@ commit_message = libs.exec_pipe_cmd(commit_message_cmd)
 new_version = int(commit_message.split()[1])+1
 git_commit(new_version)
 
-t = run_tests()
-print(t)
+# t = run_tests()
+# print(t)
 
-build()
+# build()
 
-credentials = get_credentials("credentials.json")
-docker_login(**credentials)
-push_images()
+# credentials = libs.get_json("credentials.json")
+# docker_login(**credentials)
+# push_images()

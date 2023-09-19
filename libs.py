@@ -1,4 +1,5 @@
 import subprocess
+import json
 
 def interactive_proc_start(cmd):
     cmds = cmd.strip().split()
@@ -16,3 +17,8 @@ def exec_pipe_cmd(cmd):
     process.wait()
     output = process.stdout.read().decode()
     return output.strip()
+
+def get_json(json_file_path):
+    with open(json_file_path, "r") as f:
+        json_data = json.load(f)
+    return json_data 
