@@ -49,6 +49,7 @@ def push_images():
     libs.interactive_proc_start(cmd2)
 
 ######################################################
+# GIT 
 changes = check_for_git_changes()
 if not changes:
    print("No changes!")
@@ -58,11 +59,14 @@ commit_message = libs.exec_pipe_cmd(commit_message_cmd)
 new_version = int(commit_message.split()[1])+1
 git_commit(new_version)
 
-# t = run_tests()
-# print(t)
+# TESTS
+t = run_tests()
+print(t)
 
-# build()
+# BUILD DOCKER CONTAINERS
+build()
 
-# credentials = libs.get_json("credentials.json")["docker"]
-# docker_login(**credentials)
-# push_images()
+# PUSH TO DOCKER REPO
+credentials = libs.get_json("credentials.json")["docker"]
+docker_login(**credentials)
+push_images()
